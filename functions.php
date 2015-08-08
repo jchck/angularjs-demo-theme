@@ -1,8 +1,10 @@
 <?php
 
 $functions_includes = [
+	'lib/init.php',
 	'lib/assets.php',
-	'lib/config.php'
+	'lib/config.php',
+	'lib/images.php'
 ];
 
 foreach ($functions_includes as $file) {
@@ -13,13 +15,6 @@ foreach ($functions_includes as $file) {
 }
 unset($file, $filepath);
 
-
-function my_add_link_target( $html ) {
-
-	$html = preg_replace( '/(<a.*")>/', '$1 target="_self">', $html );
-	return $html;
-}
-add_filter( 'image_send_to_editor', 'my_add_link_target', 10 );
 
 add_filter( 'query_vars', function( $query_vars ) {
 	$query_vars[] = 'post_parent';
