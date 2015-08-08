@@ -1,7 +1,12 @@
 <?php
 
+namespace AngularWP\Config;
+
 /**
  * Enable theme features
+ * 
+ * Features provided by Soil plugin
+ * @link https://github.com/roots/soil
  */
 add_theme_support('soil-clean-up');         // Enable clean up from Soil
 add_theme_support('soil-nav-walker');       // Enable cleaner nav walker from Soil
