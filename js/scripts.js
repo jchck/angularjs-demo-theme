@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ngSanitize', 'slick']);
+var app = angular.module('app', ['ngRoute', 'ngSanitize']);
 
 //Config the route
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -13,7 +13,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		templateUrl: myLocalized.partials + 'demo.html',
 		controller: 'Main'
 	})
-	.when('/blog/:ID', {
+	.when('/notebook/:slug', {
 		templateUrl: myLocalized.partials + 'content.html',
 		controller: 'Content'
 	})
@@ -44,8 +44,8 @@ app.controller('Main', ['$scope', 'WPService', function($scope, WPService) {
 
 //Content controller
 app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-	$http.get('wp-json/posts/' + $routeParams.ID).success(function(res){
-		$scope.post = res;
+	$http.get('wp-json/posts/?filter[name]=' + $routeParams.slug).success(function(res){
+		$scope.post = res[0];
 		document.querySelector('title').innerHTML = res.title + ' | AngularJS Demo Theme';
 	}).error(function(res, status){
 		if (status === 404) {
