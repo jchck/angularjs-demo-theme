@@ -9,8 +9,8 @@
 <p>{{data.pageTitle}}</p>
 <ul>
 	<li ng-repeat="post in data.posts">
-		<a href="blog/{{post.ID}}" ng-bind-html="post.title"></a>
-		<a href="blog/{{post.ID}}" ng-if="post.featured_image.attachment_meta.sizes.thumbnail.url"><img ng-src="{{post.featured_image.attachment_meta.sizes.thumbnail.url}}" alt="{{post.featured_image.title}}" /></a>
+		<a href="notebook/{{post.slug}}" ng-bind-html="post.title"></a>
+		<a href="notebook/{{post.slug}}" ng-if="post.featured_image.attachment_meta.sizes.thumbnail.url"><img ng-src="{{post.featured_image.attachment_meta.sizes.thumbnail.url}}" alt="{{post.featured_image.title}}" /></a>
 		<div ng-bind-html="post.excerpt"></div>
 	</li>
 </ul>
