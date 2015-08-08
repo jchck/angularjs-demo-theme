@@ -11,41 +11,69 @@ namespace AngularWP\Assets;
 *
 **/
 
+class JsonManifest {
+  private $manifest;
 
-function scripts() {
+  public function __construct($manifest_path) {
+    if (file_exists($manifest_path)) {
+      $this->manifest = json_decode(file_get_contents($manifest_path), true);
+    } else {
+      $this->manifest = [];
+    }
+  }
 
-	wp_register_script(
-		'angularjs',
-		get_stylesheet_directory_uri() . '/bower_components/angular/angular.min.js'
-	);
+  public function get() {
+    return $this->manifest;
+  }
 
-	wp_register_script(
-		'angularjs-route',
-		get_stylesheet_directory_uri() . '/bower_components/angular-route/angular-route.min.js'
-	);
-
-	wp_register_script(
-		'angularjs-sanitize',
-		get_stylesheet_directory_uri() . '/bower_components/angular-sanitize/angular-sanitize.min.js'
-	);
-
-	wp_enqueue_script(
-		'my-scripts',
-		get_stylesheet_directory_uri() . '/js/scripts.js',
-		array( 'angularjs', 'angularjs-route', 'angularjs-sanitize' )
-	);
-
-	wp_enqueue_script(
-		'wp-service',
-		get_stylesheet_directory_uri() . '/js/WPService.js'
-	);
-
-	wp_localize_script(
-		'my-scripts',
-		'myLocalized',
-		array(
-			'partials' => trailingslashit( get_template_directory_uri() ) . 'partials/'
-			)
-	);
+  public function getPath($key = '', $default = null) {
+    $collection = $this->manifest;
+    if (is_null($key)) {
+      return $collection;
+    }
+    if (isset($collection[$key])) {
+      return $collection[$key];
+    }
+    foreach (explode('.', $key) as $segment) {
+      if (!isset($collection[$segment])) {
+        return $default;
+      } else {
+        $collection = $collection[$segment];
+      }
+    }
+    return $collection;
+  }
 }
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\scripts' );
+
+function asset_path($filename) {
+  $dist_path = get_template_directory_uri() . DIST_DIR;
+  $directory = dirname($filename) . '/';
+  $file = basename($filename);
+  static $manifest;
+
+  if (empty($manifest)) {
+    $manifest_path = get_template_directory() . DIST_DIR . 'assets.json';
+    $manifest = new JsonManifest($manifest_path);
+  }
+
+  if (array_key_exists($file, $manifest->get())) {
+    return $dist_path . $directory . $manifest->get()[$file];
+  } else {
+    return $dist_path . $directory . $file;
+  }
+}
+
+function assets() {
+  wp_enqueue_style('sage_css', asset_path('styles/main.css'), false, null);
+
+  if (is_single() && comments_open() && get_option('thread_comments')) {
+    wp_enqueue_script('comment-reply');
+  }
+
+  wp_enqueue_script('modernizr', asset_path('scripts/modernizr.js'), [], null, false);
+  wp_enqueue_script('sage_js', asset_path('scripts/main.js'), ['jquery'], null, false);
+
+  wp_localize_script('sage_js', 'myLocalized', array('partials' => trailingslashit( get_template_directory_uri() ) . 'partials/'));
+}
+
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\assets' );
