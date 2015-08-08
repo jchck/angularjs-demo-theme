@@ -17,40 +17,15 @@ function my_scripts() {
 		get_stylesheet_directory_uri() . '/bower_components/angular-sanitize/angular-sanitize.min.js'
 	);
 
-	wp_register_script(
-		'angularjs-slick',
-		get_stylesheet_directory_uri() . '/bower_components/angular-slick/dist/slick.min.js'
-	);
-
-	wp_register_script(
-		'slick-carousel',
-		get_stylesheet_directory_uri() . '/bower_components/slick-carousel/slick/slick.min.js'
-	);
-
-	wp_register_script(
-		'my-jquery',
-		get_stylesheet_directory_uri() . '/bower_components/jquery/dist/jquery.min.js'
-	);
-
 	wp_enqueue_script(
 		'my-scripts',
-		get_stylesheet_directory_uri() . '/js/scripts.min.js',
-		array( 'my-jquery', 'angularjs', 'angularjs-route', 'angularjs-sanitize', 'slick-carousel', 'angularjs-slick' )
+		get_stylesheet_directory_uri() . '/js/scripts.js',
+		array( 'angularjs', 'angularjs-route', 'angularjs-sanitize' )
 	);
 
 	wp_enqueue_script(
 		'wp-service',
-		get_stylesheet_directory_uri() . '/js/WPService.min.js'
-	);
-
-	wp_enqueue_style(
-		'slick-css',
-		get_stylesheet_directory_uri() . '/bower_components/slick-carousel/slick/slick.css'
-	);
-
-	wp_enqueue_style(
-		'slick-theme-css',
-		get_stylesheet_directory_uri() . '/bower_components/slick-carousel/slick/slick-theme.css'
+		get_stylesheet_directory_uri() . '/js/WPService.js'
 	);
 
 	wp_localize_script(
