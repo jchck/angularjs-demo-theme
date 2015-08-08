@@ -10,3 +10,8 @@ add_theme_support('soil-nice-search');      // Enable nice search from Soil
 add_theme_support('soil-jquery-cdn');       // Enable to load jQuery from the Google CDN
 
 add_filter('show_admin_bar', '__return_false');
+function my_theme_setup() {
+
+	add_theme_support( 'post-thumbnails' );
+}
+add_action( 'after_setup_theme', 'my_theme_setup' );
