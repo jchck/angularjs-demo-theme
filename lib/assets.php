@@ -1,6 +1,18 @@
 <?php
 
-function my_scripts() {
+namespace AngularWP\Assets;
+
+/**
+*
+* Angular scripts to install via bower:
+* 1. angular.js
+* 2. angular-route.js
+* 3. angular-sanitize.js
+*
+**/
+
+
+function scripts() {
 
 	wp_register_script(
 		'angularjs',
@@ -36,4 +48,4 @@ function my_scripts() {
 			)
 	);
 }
-add_action( 'wp_enqueue_scripts', 'my_scripts' );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\scripts' );
