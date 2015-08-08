@@ -15,9 +15,3 @@ foreach ($functions_includes as $file) {
 }
 unset($file, $filepath);
 
-
-add_filter( 'query_vars', function( $query_vars ) {
-	$query_vars[] = 'post_parent';
-	return $query_vars;
-});
-
