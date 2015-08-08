@@ -1,0 +1,26 @@
+{
+  "name": "angular-wp",
+  "version": "1.0.0",
+  "homepage": "https://1fix.io/blog/2014/11/05/angularjs-json-api-wp-theme/",
+  "authors": [
+    "(yoren <yoren@1fix.io>)",
+    "(jchck <hey@justinchick.com>)"
+  ],
+  "description": "An angular.js WordPress starter theme",
+  "license": "GPL-2.0",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "modernizr": "~2.8.3",
+    "bootstrap-sass-official": "~3.3.5",
+    "angular": "~1.4.3",
+    "angular-route": "~1.4.3",
+    "angular-sanitize": "~1.4.3"
+  }
+}
