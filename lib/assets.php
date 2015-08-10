@@ -75,6 +75,8 @@ function assets() {
 
   wp_enqueue_script( 'angular', get_template_directory_uri() . '/assets/scripts/scripts.js', [], null, false );
 
+  wp_enqueue_script( 'wp_service', get_template_directory_uri() . '/assets/scripts/WPService.js', [], null, false );
+
   wp_localize_script('angular', 'localized', array('partials' => trailingslashit( get_template_directory_uri() ) . 'partials/'));
 }
 
